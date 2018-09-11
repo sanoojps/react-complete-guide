@@ -174,6 +174,8 @@ class App extends Component {
       )
        
 
+      //personsWithClicks = 
+
    }
 
   /** 
@@ -286,6 +288,9 @@ alternate way using an arrow function*/}
 
 
         {persons}
+
+
+
 
      </div>
      );
