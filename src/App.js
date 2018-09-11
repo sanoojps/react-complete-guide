@@ -101,6 +101,36 @@ class App extends Component {
      cursor: 'pointer'
    };
 
+
+   /**
+    * using a local variable insteda of full conditional
+    */
+   let persons = null;
+
+   if (this.state.showPersons)
+   {
+     persons = 
+    (
+      <div>
+        
+      <Person 
+      name={this.state.persons[1].name} 
+      age={this.state.persons[1].age}> 
+      My new Hobbies 
+      </Person>
+
+      <Person 
+      name={this.state.persons[0].name} 
+      age={this.state.persons[0].age}> 
+      My otyher  Hobbies 
+      </Person>
+
+      </div> 
+
+      )
+
+   }
+
   /** 
    * using class variables and state
   */    
@@ -180,7 +210,7 @@ alternate way using an arrow function*/}
         {/* conditional .. use ternary expression  
           {  exp ? <div> :  }
         */}
-        { this.state.showPersons ? 
+        {/* { this.state.showPersons ? 
            <div>
 
            <Person 
@@ -198,7 +228,9 @@ alternate way using an arrow function*/}
            </div> 
 
            : null /**Else condition */
-        }
+        } 
+
+
        
        <ToggleButton 
         onClick = {this.toggleHandler}
@@ -208,6 +240,7 @@ alternate way using an arrow function*/}
         </ToggleButton>
 
 
+        {persons}
 
      </div>
      );
