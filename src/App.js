@@ -9,6 +9,7 @@ import PersonWithInput from "./PersonWithInput/PersonWithInput"
 import PersonWithStyle from "./PersonWithStyle/PersonWithStyle"
 
 import ToggleButton from "./ToggleButton/ToggleButton"
+import PersonWithClick from "./PersonWithClick/PersonWithClick"
 
 class PersonP {
 constructor(name,age){
@@ -172,11 +173,28 @@ class App extends Component {
       </div>
 
       )
-       
 
-      //personsWithClicks = 
+   } //if
 
-   }
+   const personsWithClick = 
+   (
+     <div>
+       {
+         this.state.persons.map(
+           (person,index) => {
+            return (<PersonWithClick
+             onClickHandler = {this.deletePersonHandler.bind(this,index)}
+             name = {person.name}
+             age = {person.age}
+             id = {person.id}
+            >
+            </PersonWithClick> 
+            )
+           }
+         )
+       }
+     </div>
+   )
 
   /** 
    * using class variables and state
@@ -189,7 +207,7 @@ class App extends Component {
         <Person/>
 
         <Person 
-        name={this.state.persons[2].name} 
+        name={this.state.persons[0].name} 
         age={this.state.persons[0].age}> 
         My Hobbies 
         </Person>
@@ -237,16 +255,36 @@ alternate way using an arrow function*/}
 {/* two way binding*/}
 
      <PersonWithInput
-       changeHandler={this.nameChangeHandler}
+       changeHandler={
+         (event) => {
+          this.nameChangeHandler(
+            event,
+            this.state.persons[1].id
+            )
+         }
+//         this.nameChangeHandler.bind(
+//           this,
+//           //event, // React error 
+//           /**
+//            * ./src/App.js
+//   Line 267:  Unexpected use of 'event'  no-restricted-globals
+
+// Search for the keywords to learn more about each error.
+//            */
+//           this.state.persons[1].id
+//         )
+        }
        name={this.state.persons[1].name} 
-        age={this.state.persons[1].age}> 
+        age={this.state.persons[1].age} 
+        id = {this.state.persons[1].id}
+        >
       Enter Something peep
      </PersonWithInput>
 
 
         <PersonWithStyle
-        name={this.state.persons[2].name} 
-        age={this.state.persons[2].age}> 
+        name={this.state.persons[0].name} 
+        age={this.state.persons[0].age}> 
         >
         My Hobbies 
         </PersonWithStyle>
@@ -289,7 +327,7 @@ alternate way using an arrow function*/}
 
         {persons}
 
-
+        {personsWithClick}
 
 
      </div>
@@ -337,33 +375,71 @@ alternate way using an arrow function*/}
   }
 
 
-  nameChangeHandler = (event) => {
-    this.setState(
-      {
-        persons:[
+  nameChangeHandler = (event,id) => {
 
-          new PersonP("MF",28),
-          new PersonP(event.target.value,287),
-          new PersonP("Stephanie",290),
-
-          // {
-          //   name: "MF", age: 28
-          // },
-          // {
-          //   name: event.target.value, age: 287
-          // },
-          // {
-          //   name: "Stephanie", age: 290
-          // },
-        ]
+    /**
+     * working on copies
+     */
+    const persons = [...this.state.persons] //spread //copy
+    // find object at index
+    const objectindex = persons.findIndex(
+      (personObj) => {
+        return personObj.id == id
       }
-      
     )
+    //update the copy of the object
+    // holds an objcet not  PersonP class
+    const copyOfObj = {...persons[objectindex]}
+    //const newPersonP = new PersonP()
+    copyOfObj.name = 
+    event.target.value 
+    // if i use bind()
+    /*
+    TypeError: Cannot read property 'value' of undefined
+    */ 
+
+    persons[objectindex] = copyOfObj
+    
+    this.setState(
+      {persons:persons}
+    )
+
+    // this.setState(
+    //   {
+    //     persons:[
+
+    //       new PersonP("MF",28),
+    //       new PersonP(event.target.value,287),
+    //       new PersonP("Stephanie",290),
+
+    //       // {
+    //       //   name: "MF", age: 28
+    //       // },
+    //       // {
+    //       //   name: event.target.value, age: 287
+    //       // },
+    //       // {
+    //       //   name: "Stephanie", age: 290
+    //       // },
+    //     ]
+    //   }
+      
+    // )
   } 
 
   toggleHandler = (event) => {
       const doesShow = this.state.showPersons;
       this.setState({showPersons: !doesShow});
+  }
+
+
+  deletePersonHandler = (index) => {
+    //const persons = this.state.persons;
+    const persons = [...this.state.persons] // Spread
+    persons.splice(index,1);
+    this.setState(
+      {persons: persons}
+    );
   }
 
 
