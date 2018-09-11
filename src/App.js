@@ -9,6 +9,24 @@ import PersonWithInput from "./PersonWithInput/PersonWithInput"
 import PersonWithStyle from "./PersonWithStyle/PersonWithStyle"
 
 import ToggleButton from "./ToggleButton/ToggleButton"
+
+class PersonP {
+constructor(name,age){
+  this.name = name;
+  this.alt = age;
+  this.id = Math.random();
+}
+}
+
+// declaring class old js style
+// function PersonPU (name,age) {
+//   this.name = name;
+//   this.age = age;
+//   this.id = Math.random();
+// }
+
+// const apple = new PersonPU('macintosh',22);
+
 class App extends Component {
 
   /*
@@ -16,15 +34,19 @@ class App extends Component {
   */
  profiles = {
   persons:[
-    {
-      name: "genius", age: 280
-    },
-    {
-      name: "sadad", age: 287
-    },
-    {
-      name: "sdad", age: 2999
-    },
+    new PersonP("genius",280),
+    new PersonP("sadad",287),
+    new PersonP("sdad",2999),
+
+    // {
+    //   name: "genius", age: 280
+    // },
+    // {
+    //   name: "sadad", age: 287
+    // },
+    // {
+    //   name: "sdad", age: 2999
+    // },
   ]
  };
 
@@ -35,15 +57,20 @@ class App extends Component {
  state = 
  {
     persons:[
-      {
-        name: "Max", age: 28
-      },
-      {
-        name: "Manu", age: 28
-      },
-      {
-        name: "Stephanie", age: 29
-      },
+
+      new PersonP("Max",28),
+    new PersonP("Manu",28),
+    new PersonP("Stephanie",29),
+
+      // {
+      //   name: "Max", age: 28
+      // },
+      // {
+      //   name: "Manu", age: 28
+      // },
+      // {
+      //   name: "Stephanie", age: 29
+      // },
     ],
     someOtherState: "Some",
     showPersons: false /** toggle display */
@@ -109,25 +136,43 @@ class App extends Component {
 
    if (this.state.showPersons)
    {
-     persons = 
-    (
-      <div>
+    //  persons = 
+    // (
+    //   <div>
         
-      <Person 
-      name={this.state.persons[1].name} 
-      age={this.state.persons[1].age}> 
-      My new Hobbies 
-      </Person>
+    //   <Person 
+    //   name={this.state.persons[1].name} 
+    //   age={this.state.persons[1].age}> 
+    //   My new Hobbies 
+    //   </Person>
 
-      <Person 
-      name={this.state.persons[0].name} 
-      age={this.state.persons[0].age}> 
-      My otyher  Hobbies 
-      </Person>
+    //   <Person 
+    //   name={this.state.persons[0].name} 
+    //   age={this.state.persons[0].age}> 
+    //   My otyher  Hobbies 
+    //   </Person>
 
-      </div> 
+    //   </div> 
+
+    //   )
+      
+      persons = (
+
+        <div>
+        { this.state.persons.map( (person)  => {
+        return (
+            <Person key={person.id}
+            name= {person.name} 
+            age= {person.age}> 
+            My otyher  Hobbies 
+            </Person>
+         )
+        }
+        ) }
+      </div>
 
       )
+       
 
    }
 
@@ -267,15 +312,20 @@ alternate way using an arrow function*/}
     this.setState(
       {
         persons:[
-          {
-            name: newName, age: 28
-          },
-          {
-            name: "Manu", age: 28
-          },
-          {
-            name: "Stephanie", age: 29
-          },
+
+          new PersonP(newName,28),
+    new PersonP("Manu",28),
+    new PersonP("Stephanie",29),
+
+          // {
+          //   name: newName, age: 28
+          // },
+          // {
+          //   name: "Manu", age: 28
+          // },
+          // {
+          //   name: "Stephanie", age: 29
+          // },
         ]
       }
     );
@@ -286,15 +336,20 @@ alternate way using an arrow function*/}
     this.setState(
       {
         persons:[
-          {
-            name: "MF", age: 28
-          },
-          {
-            name: event.target.value, age: 287
-          },
-          {
-            name: "Stephanie", age: 290
-          },
+
+          new PersonP("MF",28),
+          new PersonP(event.target.value,287),
+          new PersonP("Stephanie",290),
+
+          // {
+          //   name: "MF", age: 28
+          // },
+          // {
+          //   name: event.target.value, age: 287
+          // },
+          // {
+          //   name: "Stephanie", age: 290
+          // },
         ]
       }
       
