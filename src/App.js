@@ -7,6 +7,8 @@ import Person from "./Person/Person"
 import RandomPerson from "./RandomPerson/RandomPerson"
 import PersonWithInput from "./PersonWithInput/PersonWithInput"
 import PersonWithStyle from "./PersonWithStyle/PersonWithStyle"
+
+import ToggleButton from "./ToggleButton/ToggleButton"
 class App extends Component {
 
   /*
@@ -43,7 +45,8 @@ class App extends Component {
         name: "Stephanie", age: 29
       },
     ],
-    someOtherState: "Some"
+    someOtherState: "Some",
+    showPersons: false /** toggle display */
  };
 
 /**
@@ -172,6 +175,40 @@ alternate way using an arrow function*/}
         </PersonWithStyle>
 
 
+       
+
+        {/* conditional .. use ternary expression  
+          {  exp ? <div> :  }
+        */}
+        { this.state.showPersons ? 
+           <div>
+
+           <Person 
+           name={this.state.persons[1].name} 
+           age={this.state.persons[1].age}> 
+           My new Hobbies 
+           </Person>
+   
+           <Person 
+           name={this.state.persons[0].name} 
+           age={this.state.persons[0].age}> 
+           My otyher  Hobbies 
+           </Person>
+   
+           </div> 
+
+           : null /**Else condition */
+        }
+       
+       <ToggleButton 
+        onClick = {this.toggleHandler}
+        toggleState = {this.state.showPersons}
+        >
+        Toggle display below
+        </ToggleButton>
+
+
+
      </div>
      );
 
@@ -229,9 +266,16 @@ alternate way using an arrow function*/}
       }
       
     )
+  } 
+
+  toggleHandler = (event) => {
+      const doesShow = this.state.showPersons;
+      this.setState({showPersons: !doesShow});
   }
 
-}
+
+
+} // class
 
 
 
